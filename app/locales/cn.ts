@@ -1,5 +1,7 @@
 import { SubmitKey } from "../store/app";
 
+const app_name = "小助手";
+
 const cn = {
   WIP: "该功能仍在开发中……",
   Error: {
@@ -9,7 +11,7 @@ const cn = {
     ChatItemCount: (count: number) => `${count} 条对话`,
   },
   Chat: {
-    SubTitle: (count: number) => `与 ChatGPT 的 ${count} 条对话`,
+    SubTitle: (count: number) => `与 ${app_name} 的 ${count} 条对话`,
     Actions: {
       ChatList: "查看消息列表",
       CompressedHistory: "查看压缩后的历史 Prompt",
@@ -35,7 +37,7 @@ const cn = {
     Copy: "全部复制",
     Download: "下载文件",
     MessageFromYou: "来自你的消息",
-    MessageFromChatGPT: "来自 ChatGPT 的消息",
+    MessageFromChatGPT: `来自 ${app_name} 的消息`,
   },
   Memory: {
     Title: "历史记忆",
