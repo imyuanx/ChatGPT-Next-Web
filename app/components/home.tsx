@@ -2,7 +2,7 @@
 
 require("../polyfill");
 
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef, HTMLProps } from "react";
 
 import { IconButton } from "./button";
 import styles from "./home.module.scss";
@@ -15,6 +15,8 @@ import BotIcon from "../icons/bot.svg";
 import AddIcon from "../icons/add.svg";
 import LoadingIcon from "../icons/three-dots.svg";
 import CloseIcon from "../icons/close.svg";
+import EyeIcon from "../icons/eye.svg";
+import EyeOffIcon from "../icons/eye-off.svg";
 
 import { useChatStore } from "../store";
 import { getCSSVar, isMobileScreen } from "../utils";
@@ -41,6 +43,29 @@ const Settings = dynamic(async () => (await import("./settings")).Settings, {
 const ChatList = dynamic(async () => (await import("./chat-list")).ChatList, {
   loading: () => <Loading noLogo />,
 });
+
+function PasswordInput(props: HTMLProps<HTMLInputElement>) {
+  const [visible, setVisible] = useState(false);
+
+  function changeVisibility() {
+    setVisible(!visible);
+  }
+
+  return (
+    <div className={styles["password-input-container"]}>
+      <input
+        {...props}
+        type={visible ? "text" : "password"}
+        className={styles["password-input"]}
+      />
+      <IconButton
+        icon={visible ? <EyeIcon /> : <EyeOffIcon />}
+        onClick={changeVisibility}
+        className={styles["password-eye"]}
+      />
+    </div>
+  );
+}
 
 function useSwitchTheme() {
   const config = useChatStore((state) => state.config);
@@ -131,6 +156,9 @@ const useHasHydrated = () => {
 };
 
 function _Home() {
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+  const [isLogin, setIsLogin] = useState(false);
   const [createNewSession, currentIndex, removeSession] = useChatStore(
     (state) => [
       state.newSession,
@@ -155,6 +183,15 @@ function _Home() {
     return <Loading />;
   }
 
+  // login
+  const onLogin = () => {
+    if (username === "qianshouyisheng" && password === "qianshouyisheng123") {
+      setIsLogin(true);
+    } else {
+      alert("帐号或密码错误");
+    }
+  };
+
   return (
     <div
       className={`${
@@ -162,15 +199,14 @@ function _Home() {
           ? styles["tight-container"]
           : styles.container
       }`}
+      style={{ position: "relative" }}
     >
       <div
         className={styles.sidebar + ` ${showSideBar && styles["sidebar-show"]}`}
       >
         <div className={styles["sidebar-header"]}>
-          <div className={styles["sidebar-title"]}>ChatGPT Next</div>
-          <div className={styles["sidebar-sub-title"]}>
-            Build your own AI assistant.
-          </div>
+          <div className={styles["sidebar-title"]}>牵手一生的小助理</div>
+          <div className={styles["sidebar-sub-title"]}>您的私人 AI 助理</div>
           <div className={styles["sidebar-logo"]}>
             <ChatGptIcon />
           </div>
@@ -245,6 +281,37 @@ function _Home() {
           />
         )}
       </div>
+      {!isLogin && (
+        <div className={styles["login-container"]}>
+          <div className={styles["login-item"]}>
+            <label>账号：</label>
+            <input
+              type="text"
+              value={username}
+              onChange={(e) => setUsername(e.currentTarget.value)}
+            />
+            <div style={{ width: 40 }}></div>
+          </div>
+          <div className={styles["login-item"]}>
+            <label>密码：</label>
+            <PasswordInput
+              value={password}
+              type="text"
+              placeholder={Locale.Settings.AccessCode.Placeholder}
+              onChange={(e) => setPassword(e.currentTarget.value)}
+            />
+          </div>
+          <div>
+            <IconButton
+              icon={null}
+              text={"登录"}
+              className={styles["login-btn"]}
+              noDark
+              onClick={onLogin}
+            />
+          </div>
+        </div>
+      )}
     </div>
   );
 }
