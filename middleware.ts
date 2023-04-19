@@ -43,6 +43,12 @@ export function middleware(req: NextRequest) {
     );
   }
 
+  if (serverConfig.orgId) {
+    const orgId = serverConfig.orgId;
+    console.log("[Auth] set system organization id");
+    req.headers.set("orgId", orgId);
+  }
+
   // inject api key
   if (!token) {
     const apiKey = serverConfig.apiKey;
