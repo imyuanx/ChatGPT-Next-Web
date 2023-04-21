@@ -67,7 +67,10 @@ function PasswordInput(props: HTMLProps<HTMLInputElement>) {
           )
         }
         onClick={changeVisibility}
-        className={styles["password-eye"]}
+        className={[
+          styles["password-eye"],
+          styles["password-eye-no-padding"],
+        ].join(" ")}
       />
     </div>
   );
