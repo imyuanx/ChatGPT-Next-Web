@@ -1,6 +1,6 @@
 import { SubmitKey } from "../store/app";
 
-const app_name = "小助手";
+const app_name = "幸福大学助教";
 
 const cn = {
   WIP: "该功能仍在开发中……",

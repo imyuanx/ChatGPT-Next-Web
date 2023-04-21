@@ -158,7 +158,7 @@ const useHasHydrated = () => {
 function _Home() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-  const [isLogin, setIsLogin] = useState(false);
+  const [isLogin, setIsLogin] = useState(true); // TEST:
   const [createNewSession, currentIndex, removeSession] = useChatStore(
     (state) => [
       state.newSession,
@@ -205,7 +205,7 @@ function _Home() {
         className={styles.sidebar + ` ${showSideBar && styles["sidebar-show"]}`}
       >
         <div className={styles["sidebar-header"]}>
-          <div className={styles["sidebar-title"]}>牵手一生的小助理</div>
+          <div className={styles["sidebar-title"]}>幸福大学助教</div>
           <div className={styles["sidebar-sub-title"]}>您的私人 AI 助理</div>
           <div className={styles["sidebar-logo"]}>
             <ChatGptIcon />
@@ -232,7 +232,7 @@ function _Home() {
             </div>
             <div className={styles["sidebar-action"]}>
               <IconButton
-                icon={<SettingsIcon />}
+                icon={<SettingsIcon className={styles["window-icon"]} />}
                 onClick={() => {
                   setOpenSettings(true);
                   setShowSideBar(false);
@@ -242,13 +242,16 @@ function _Home() {
             </div>
             <div className={styles["sidebar-action"]}>
               <a href={REPO_URL} target="_blank">
-                <IconButton icon={<GithubIcon />} shadow />
+                <IconButton
+                  icon={<GithubIcon className={styles["window-icon"]} />}
+                  shadow
+                />
               </a>
             </div>
           </div>
           <div>
             <IconButton
-              icon={<AddIcon />}
+              icon={<AddIcon className={styles["window-icon"]} />}
               text={Locale.Home.NewChat}
               onClick={() => {
                 createNewSession();

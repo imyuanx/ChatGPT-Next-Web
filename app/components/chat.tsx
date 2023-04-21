@@ -104,14 +104,14 @@ function exportMessages(messages: Message[], topic: string) {
     actions: [
       <IconButton
         key="copy"
-        icon={<CopyIcon />}
+        icon={<CopyIcon className={styles["window-icon"]} />}
         bordered
         text={Locale.Export.Copy}
         onClick={() => copyToClipboard(mdText)}
       />,
       <IconButton
         key="download"
-        icon={<DownloadIcon />}
+        icon={<DownloadIcon className={styles["window-icon"]} />}
         bordered
         text={Locale.Export.Download}
         onClick={() => downloadAs(mdText, filename)}
@@ -155,7 +155,7 @@ function PromptToast(props: {
           role="button"
           onClick={() => props.setShowModal(true)}
         >
-          <BrainIcon />
+          <BrainIcon className={styles["window-icon"]} />
           <span className={chatStyle["prompt-toast-content"]}>
             {Locale.Context.Toast(context.length)}
           </span>
@@ -169,7 +169,7 @@ function PromptToast(props: {
             actions={[
               <IconButton
                 key="reset"
-                icon={<CopyIcon />}
+                icon={<CopyIcon className={styles["window-icon"]} />}
                 bordered
                 text={Locale.Memory.Reset}
                 onClick={() =>
@@ -179,7 +179,7 @@ function PromptToast(props: {
               />,
               <IconButton
                 key="copy"
-                icon={<CopyIcon />}
+                icon={<CopyIcon className={styles["window-icon"]} />}
                 bordered
                 text={Locale.Memory.Copy}
                 onClick={() => copyToClipboard(session.memoryPrompt)}
@@ -219,7 +219,7 @@ function PromptToast(props: {
                       }
                     />
                     <IconButton
-                      icon={<DeleteIcon />}
+                      icon={<DeleteIcon className={styles["window-icon"]} />}
                       className={chatStyle["context-delete-button"]}
                       onClick={() => removeContextPrompt(i)}
                       bordered
@@ -229,7 +229,7 @@ function PromptToast(props: {
 
                 <div className={chatStyle["context-prompt-row"]}>
                   <IconButton
-                    icon={<AddIcon />}
+                    icon={<AddIcon className={styles["window-icon"]} />}
                     text={Locale.Context.Add}
                     bordered
                     className={chatStyle["context-prompt-button"]}
@@ -376,7 +376,7 @@ export function ChatActions(props: {
           className={`${chatStyle["chat-input-action"]} clickable`}
           onClick={stopAll}
         >
-          <StopIcon />
+          <StopIcon className={styles["window-icon"]} />
         </div>
       )}
       {!props.hitBottom && (
@@ -384,7 +384,7 @@ export function ChatActions(props: {
           className={`${chatStyle["chat-input-action"]} clickable`}
           onClick={props.scrollToBottom}
         >
-          <BottomIcon />
+          <BottomIcon className={styles["window-icon"]} />
         </div>
       )}
       {props.hitBottom && (
@@ -392,7 +392,7 @@ export function ChatActions(props: {
           className={`${chatStyle["chat-input-action"]} clickable`}
           onClick={props.showPromptModal}
         >
-          <BrainIcon />
+          <BrainIcon className={styles["window-icon"]} />
         </div>
       )}
 
@@ -401,11 +401,11 @@ export function ChatActions(props: {
         onClick={nextTheme}
       >
         {theme === Theme.Auto ? (
-          <AutoIcon />
+          <AutoIcon className={styles["window-icon"]} />
         ) : theme === Theme.Light ? (
-          <LightIcon />
+          <LightIcon className={styles["window-icon"]} />
         ) : theme === Theme.Dark ? (
-          <DarkIcon />
+          <DarkIcon className={styles["window-icon"]} />
         ) : null}
       </div>
     </div>
@@ -656,7 +656,7 @@ export function Chat(props: {
         <div className={styles["window-actions"]}>
           <div className={styles["window-action-button"] + " " + styles.mobile}>
             <IconButton
-              icon={<ReturnIcon />}
+              icon={<ReturnIcon className={styles["window-icon"]} />}
               bordered
               title={Locale.Chat.Actions.ChatList}
               onClick={props?.showSideBar}
@@ -664,14 +664,14 @@ export function Chat(props: {
           </div>
           <div className={styles["window-action-button"]}>
             <IconButton
-              icon={<RenameIcon />}
+              icon={<RenameIcon className={styles["window-icon"]} />}
               bordered
               onClick={renameSession}
             />
           </div>
           <div className={styles["window-action-button"]}>
             <IconButton
-              icon={<ExportIcon />}
+              icon={<ExportIcon className={styles["window-icon"]} />}
               bordered
               title={Locale.Chat.Actions.Export}
               onClick={() => {
@@ -685,7 +685,13 @@ export function Chat(props: {
           {!isMobileScreen() && (
             <div className={styles["window-action-button"]}>
               <IconButton
-                icon={chatStore.config.tightBorder ? <MinIcon /> : <MaxIcon />}
+                icon={
+                  chatStore.config.tightBorder ? (
+                    <MinIcon className={styles["window-icon"]} />
+                  ) : (
+                    <MaxIcon className={styles["window-icon"]} />
+                  )
+                }
                 bordered
                 onClick={() => {
                   chatStore.updateConfig(
@@ -823,7 +829,7 @@ export function Chat(props: {
             rows={inputRows}
           />
           <IconButton
-            icon={<SendWhiteIcon />}
+            icon={<SendWhiteIcon className={styles["window-icon"]} />}
             text={Locale.Chat.Send}
             className={styles["chat-input-send"]}
             noDark

@@ -61,7 +61,7 @@ function UserPromptModal(props: { onClose?: () => void }) {
           <IconButton
             key="add"
             onClick={() => promptStore.add({ title: "", content: "" })}
-            icon={<ClearIcon />}
+            icon={<ClearIcon className={styles["window-icon"]} />}
             bordered
             text={Locale.Settings.Prompt.Modal.Add}
           />,
@@ -98,14 +98,14 @@ function UserPromptModal(props: { onClose?: () => void }) {
                   <div className={styles["user-prompt-buttons"]}>
                     {v.isUser && (
                       <IconButton
-                        icon={<ClearIcon />}
+                        icon={<ClearIcon className={styles["window-icon"]} />}
                         bordered
                         className={styles["user-prompt-button"]}
                         onClick={() => promptStore.remove(v.id!)}
                       />
                     )}
                     <IconButton
-                      icon={<CopyIcon />}
+                      icon={<CopyIcon className={styles["window-icon"]} />}
                       bordered
                       className={styles["user-prompt-button"]}
                       onClick={() => copyToClipboard(v.content)}
@@ -163,7 +163,13 @@ function PasswordInput(props: HTMLProps<HTMLInputElement>) {
   return (
     <div className={styles["password-input-container"]}>
       <IconButton
-        icon={visible ? <EyeIcon /> : <EyeOffIcon />}
+        icon={
+          visible ? (
+            <EyeIcon className={styles["window-icon"]} />
+          ) : (
+            <EyeOffIcon className={styles["window-icon"]} />
+          )
+        }
         onClick={changeVisibility}
         className={styles["password-eye"]}
       />
@@ -259,7 +265,7 @@ export function Settings(props: { closeSettings: () => void }) {
         <div className={styles["window-actions"]}>
           <div className={styles["window-action-button"]}>
             <IconButton
-              icon={<ClearIcon />}
+              icon={<ClearIcon className={styles["window-icon"]} />}
               onClick={() => {
                 const confirmed = window.confirm(
                   `${Locale.Settings.Actions.ConfirmClearAll.Confirm}`,
@@ -274,7 +280,7 @@ export function Settings(props: { closeSettings: () => void }) {
           </div>
           <div className={styles["window-action-button"]}>
             <IconButton
-              icon={<ResetIcon />}
+              icon={<ResetIcon className={styles["window-icon"]} />}
               onClick={() => {
                 const confirmed = window.confirm(
                   `${Locale.Settings.Actions.ConfirmResetAll.Confirm}`,
@@ -289,7 +295,7 @@ export function Settings(props: { closeSettings: () => void }) {
           </div>
           <div className={styles["window-action-button"]}>
             <IconButton
-              icon={<CloseIcon />}
+              icon={<CloseIcon className={styles["window-icon"]} />}
               onClick={props.closeSettings}
               bordered
               title={Locale.Settings.Actions.Close}
@@ -568,7 +574,7 @@ export function Settings(props: { closeSettings: () => void }) {
             )}
           >
             <IconButton
-              icon={<EditIcon />}
+              icon={<EditIcon className={styles["window-icon"]} />}
               text={Locale.Settings.Prompt.Edit}
               onClick={() => setShowPromptModal(true)}
             />
