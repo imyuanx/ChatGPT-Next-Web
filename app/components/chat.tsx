@@ -1,4 +1,4 @@
-import { useDebounce, useDebouncedCallback } from "use-debounce";
+import { useDebouncedCallback } from "use-debounce";
 import { memo, useState, useRef, useEffect, useLayoutEffect } from "react";
 
 import SendWhiteIcon from "../icons/send-white.svg";
@@ -9,7 +9,6 @@ import ReturnIcon from "../icons/return.svg";
 import CopyIcon from "../icons/copy.svg";
 import DownloadIcon from "../icons/download.svg";
 import LoadingIcon from "../icons/three-dots.svg";
-import BotIcon from "../icons/bot.svg";
 import AddIcon from "../icons/add.svg";
 import DeleteIcon from "../icons/delete.svg";
 import MaxIcon from "../icons/max.svg";
@@ -52,6 +51,7 @@ import styles from "./home.module.scss";
 import chatStyle from "./chat.module.scss";
 
 import { Input, Modal, showModal } from "./ui-lib";
+import Image from "next/image";
 
 const Markdown = dynamic(
   async () => memo((await import("./markdown")).Markdown),
@@ -70,7 +70,15 @@ export function Avatar(props: { role: Message["role"] }) {
   if (props.role !== "user") {
     return (
       <div className="no-dark">
-        <BotIcon className={styles["user-avtar"]} />
+        <Image
+          className={[styles["user-avtar"], styles["sidebar-logo-img"]].join(
+            " ",
+          )}
+          src="/logo-256x256.webp"
+          width={32}
+          height={32}
+          alt="HAPPYINESS UNIVERSITY"
+        />
       </div>
     );
   }
@@ -710,100 +718,119 @@ export function Chat(props: {
         />
       </div>
 
-      <div
-        className={styles["chat-body"]}
-        ref={scrollRef}
-        onScroll={(e) => onChatBodyScroll(e.currentTarget)}
-        onMouseDown={() => inputRef.current?.blur()}
-        onWheel={(e) => setAutoScroll(hitBottom && e.deltaY > 0)}
-        onTouchStart={() => {
-          inputRef.current?.blur();
-          setAutoScroll(false);
-        }}
-      >
-        {messages.map((message, i) => {
-          const isUser = message.role === "user";
-
-          return (
-            <div
-              key={i}
-              className={
-                isUser ? styles["chat-message-user"] : styles["chat-message"]
-              }
-            >
-              <div className={styles["chat-message-container"]}>
-                <div className={styles["chat-message-avatar"]}>
-                  <Avatar role={message.role} />
-                </div>
-                {(message.preview || message.streaming) && (
-                  <div className={styles["chat-message-status"]}>
-                    {Locale.Chat.Typing}
+      <div className={styles["chat-body-box"]}>
+        <div
+          className={styles["chat-body"]}
+          ref={scrollRef}
+          onScroll={(e) => onChatBodyScroll(e.currentTarget)}
+          onMouseDown={() => inputRef.current?.blur()}
+          onWheel={(e) => setAutoScroll(hitBottom && e.deltaY > 0)}
+          onTouchStart={() => {
+            inputRef.current?.blur();
+            setAutoScroll(false);
+          }}
+        >
+          {messages.map((message, i) => {
+            const isUser = message.role === "user";
+            return (
+              <div
+                key={i}
+                className={
+                  isUser ? styles["chat-message-user"] : styles["chat-message"]
+                }
+              >
+                <div className={styles["chat-message-container"]}>
+                  <div className={styles["chat-message-avatar"]}>
+                    <Avatar role={message.role} />
                   </div>
-                )}
-                <div className={styles["chat-message-item"]}>
-                  {!isUser &&
-                    !(message.preview || message.content.length === 0) && (
-                      <div className={styles["chat-message-top-actions"]}>
-                        {message.streaming ? (
+                  {(message.preview || message.streaming) && (
+                    <div className={styles["chat-message-status"]}>
+                      {Locale.Chat.Typing}
+                    </div>
+                  )}
+                  <div className={styles["chat-message-item"]}>
+                    {!isUser &&
+                      !(message.preview || message.content.length === 0) && (
+                        <div className={styles["chat-message-top-actions"]}>
+                          {message.streaming ? (
+                            <div
+                              className={styles["chat-message-top-action"]}
+                              onClick={() => onUserStop(message.id ?? i)}
+                            >
+                              {Locale.Chat.Actions.Stop}
+                            </div>
+                          ) : (
+                            <>
+                              <div
+                                className={styles["chat-message-top-action"]}
+                                onClick={() => onDelete(message.id ?? i)}
+                              >
+                                {Locale.Chat.Actions.Delete}
+                              </div>
+                              <div
+                                className={styles["chat-message-top-action"]}
+                                onClick={() => onResend(message.id ?? i)}
+                              >
+                                {Locale.Chat.Actions.Retry}
+                              </div>
+                            </>
+                          )}
+
                           <div
                             className={styles["chat-message-top-action"]}
-                            onClick={() => onUserStop(message.id ?? i)}
+                            onClick={() => copyToClipboard(message.content)}
                           >
-                            {Locale.Chat.Actions.Stop}
+                            {Locale.Chat.Actions.Copy}
                           </div>
-                        ) : (
-                          <>
-                            <div
-                              className={styles["chat-message-top-action"]}
-                              onClick={() => onDelete(message.id ?? i)}
-                            >
-                              {Locale.Chat.Actions.Delete}
-                            </div>
-                            <div
-                              className={styles["chat-message-top-action"]}
-                              onClick={() => onResend(message.id ?? i)}
-                            >
-                              {Locale.Chat.Actions.Retry}
-                            </div>
-                          </>
-                        )}
-
-                        <div
-                          className={styles["chat-message-top-action"]}
-                          onClick={() => copyToClipboard(message.content)}
-                        >
-                          {Locale.Chat.Actions.Copy}
                         </div>
-                      </div>
-                    )}
-                  <Markdown
-                    content={message.content}
-                    loading={
-                      (message.preview || message.content.length === 0) &&
-                      !isUser
-                    }
-                    onContextMenu={(e) => onRightClick(e, message)}
-                    onDoubleClickCapture={() => {
-                      if (!isMobileScreen()) return;
-                      setUserInput(message.content);
-                    }}
-                    fontSize={fontSize}
-                    parentRef={scrollRef}
-                  />
-                </div>
-                {!isUser && !message.preview && (
-                  <div className={styles["chat-message-actions"]}>
-                    <div className={styles["chat-message-action-date"]}>
-                      {message.date.toLocaleString()}
-                    </div>
+                      )}
+                    <Markdown
+                      content={message.content}
+                      loading={
+                        (message.preview || message.content.length === 0) &&
+                        !isUser
+                      }
+                      onContextMenu={(e) => onRightClick(e, message)}
+                      onDoubleClickCapture={() => {
+                        if (!isMobileScreen()) return;
+                        setUserInput(message.content);
+                      }}
+                      fontSize={fontSize}
+                      parentRef={scrollRef}
+                    />
                   </div>
-                )}
+                  {!isUser && !message.preview && (
+                    <div className={styles["chat-message-actions"]}>
+                      <div className={styles["chat-message-action-date"]}>
+                        {message.date.toLocaleString()}
+                      </div>
+                    </div>
+                  )}
+                </div>
               </div>
-            </div>
-          );
-        })}
+            );
+          })}
+        </div>
+        <div
+          style={{
+            position: "absolute",
+            display: "flex",
+            flexDirection: "column",
+            justifyContent: "center",
+            alignItems: "center",
+            textAlign: "center",
+            width: "100%",
+            height: "100%",
+            fontSize: 80,
+            fontWeight: 700,
+            color: "rgba(255, 255, 255, .1)",
+            pointerEvents: "none",
+          }}
+        >
+          <div>{`HAPPYINESS`}</div>
+          <div>{`UNIVERSITY`}</div>
+        </div>
       </div>
-
       <div className={styles["chat-input-panel"]}>
         <PromptHints prompts={promptHints} onPromptSelect={onPromptSelect} />
 

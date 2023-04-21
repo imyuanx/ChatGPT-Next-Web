@@ -231,12 +231,24 @@
   height: 100%;
 }
 
-.chat-body {
+.chat-body-box {
   flex: 1;
+  overflow: hidden;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.chat-body {
+  height: 100%;
+  width: 100%;
   overflow: auto;
   padding: 20px;
   padding-bottom: 40px;
   position: relative;
+  background-color: transparent;
+  z-index: 1;
 }
 
 .chat-body-title {
@@ -311,6 +323,7 @@
   word-break: break-word;
   border: var(--border-in-light);
   position: relative;
+  background-color: var(--white);
 }
 
 .chat-message-top-actions {

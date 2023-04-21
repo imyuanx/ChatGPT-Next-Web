@@ -28,8 +28,6 @@ import { Avatar } from "./chat";
 
 import Locale, { AllLangs, changeLang, getLang } from "../locales";
 import { copyToClipboard, getEmojiUrl } from "../utils";
-import Link from "next/link";
-import { UPDATE_URL } from "../constant";
 import { Prompt, SearchService, usePromptStore } from "../store/prompt";
 import { ErrorBoundary } from "./error";
 import { InputRange } from "./input-range";
@@ -329,32 +327,6 @@ export function Settings(props: { closeSettings: () => void }) {
               </div>
             </Popover>
           </SettingItem>
-
-          {/* <SettingItem
-            title={Locale.Settings.Update.Version(currentVersion ?? "unknown")}
-            subTitle={
-              checkingUpdate
-                ? Locale.Settings.Update.IsChecking
-                : hasNewVersion
-                ? Locale.Settings.Update.FoundUpdate(remoteId ?? "ERROR")
-                : Locale.Settings.Update.IsLatest
-            }
-          >
-            {checkingUpdate ? (
-              <div />
-            ) : hasNewVersion ? (
-              <Link href={UPDATE_URL} target="_blank" className="link">
-                {Locale.Settings.Update.GoToUpdate}
-              </Link>
-            ) : (
-              <IconButton
-                icon={<ResetIcon></ResetIcon>}
-                text={Locale.Settings.Update.CheckUpdate}
-                onClick={() => checkUpdate(true)}
-              />
-            )}
-          </SettingItem> */}
-
           <SettingItem title={Locale.Settings.SendKey}>
             <select
               value={config.submitKey}
@@ -503,7 +475,7 @@ export function Settings(props: { closeSettings: () => void }) {
               <div />
             ) : (
               <IconButton
-                icon={<ResetIcon></ResetIcon>}
+                icon={<ResetIcon className={styles["window-icon"]} />}
                 text={Locale.Settings.Usage.Check}
                 onClick={checkUsage}
               />

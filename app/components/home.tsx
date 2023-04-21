@@ -8,9 +8,7 @@ import { IconButton } from "./button";
 import styles from "./home.module.scss";
 
 import SettingsIcon from "../icons/settings.svg";
-import ChatGptIcon from "../icons/chatgpt.svg";
 
-import BotIcon from "../icons/bot.svg";
 import AddIcon from "../icons/add.svg";
 import LoadingIcon from "../icons/three-dots.svg";
 import CloseIcon from "../icons/close.svg";
@@ -23,14 +21,23 @@ import Locale from "../locales";
 import { Chat } from "./chat";
 
 import dynamic from "next/dynamic";
-import { REPO_URL } from "../constant";
 import { ErrorBoundary } from "./error";
 import Image from "next/image";
 
 export function Loading(props: { noLogo?: boolean }) {
   return (
     <div className={styles["loading-content"]}>
-      {!props.noLogo && <BotIcon />}
+      {!props.noLogo && (
+        <Image
+          className={[styles["user-avtar"], styles["sidebar-logo-img"]].join(
+            " ",
+          )}
+          src="/logo-256x256.webp"
+          width={32}
+          height={32}
+          alt="HAPPYINESS UNIVERSITY"
+        />
+      )}
       <LoadingIcon />
     </div>
   );
@@ -167,7 +174,7 @@ const useHasHydrated = () => {
 function _Home() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-  const [isLogin, setIsLogin] = useState(false);
+  const [isLogin, setIsLogin] = useState(true); // TEST:
   const [createNewSession, currentIndex, removeSession] = useChatStore(
     (state) => [
       state.newSession,
