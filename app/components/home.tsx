@@ -58,7 +58,13 @@ function PasswordInput(props: HTMLProps<HTMLInputElement>) {
         className={styles["password-input"]}
       />
       <IconButton
-        icon={visible ? <EyeIcon /> : <EyeOffIcon />}
+        icon={
+          visible ? (
+            <EyeIcon className={styles["window-icon-solid"]} />
+          ) : (
+            <EyeOffIcon className={styles["window-icon-solid"]} />
+          )
+        }
         onClick={changeVisibility}
         className={styles["password-eye"]}
       />
