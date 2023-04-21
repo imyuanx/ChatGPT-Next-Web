@@ -8,7 +8,6 @@ import { IconButton } from "./button";
 import styles from "./home.module.scss";
 
 import SettingsIcon from "../icons/settings.svg";
-import GithubIcon from "../icons/github.svg";
 import ChatGptIcon from "../icons/chatgpt.svg";
 
 import BotIcon from "../icons/bot.svg";
@@ -239,14 +238,6 @@ function _Home() {
                 }}
                 shadow
               />
-            </div>
-            <div className={styles["sidebar-action"]}>
-              <a href={REPO_URL} target="_blank">
-                <IconButton
-                  icon={<GithubIcon className={styles["window-icon"]} />}
-                  shadow
-                />
-              </a>
             </div>
           </div>
           <div>
