@@ -25,6 +25,7 @@ import { Chat } from "./chat";
 import dynamic from "next/dynamic";
 import { REPO_URL } from "../constant";
 import { ErrorBoundary } from "./error";
+import Image from "next/image";
 
 export function Loading(props: { noLogo?: boolean }) {
   return (
@@ -213,7 +214,13 @@ function _Home() {
           <div className={styles["sidebar-title"]}>幸福大学助教</div>
           <div className={styles["sidebar-sub-title"]}>您的私人 AI 助理</div>
           <div className={styles["sidebar-logo"]}>
-            <ChatGptIcon />
+            <Image
+              className={styles["sidebar-logo-img"]}
+              src="/logo-256x256.webp"
+              width={58}
+              height={58}
+              alt="HAPPYINESS UNIVERSITY"
+            />
           </div>
         </div>
 
@@ -231,7 +238,7 @@ function _Home() {
           <div className={styles["sidebar-actions"]}>
             <div className={styles["sidebar-action"] + " " + styles.mobile}>
               <IconButton
-                icon={<CloseIcon />}
+                icon={<CloseIcon className={styles["window-icon"]} />}
                 onClick={chatStore.deleteSession}
               />
             </div>

@@ -120,7 +120,11 @@
 .sidebar-logo {
   position: absolute;
   right: 0;
-  bottom: 18px;
+  bottom: 8px;
+  .sidebar-logo-img {
+    filter: brightness(30);
+    opacity: 0.3;
+  }
 }
 
 .sidebar-title {
