@@ -53,6 +53,14 @@ const it: LocaleType = {
     DeleteChat: "Confermare la cancellazione della conversazione selezionata?",
     DeleteToast: "Chat Cancellata",
     Revert: "Revert",
+    Login: {
+      Username: { Label: "Account:", Placeholder: "Inserisci il tuo account" },
+      Password: {
+        Label: "Password:",
+        Placeholder: "Inserisci la tua password",
+      },
+      Button: "Accedi",
+    },
   },
   Settings: {
     Title: "Impostazioni",

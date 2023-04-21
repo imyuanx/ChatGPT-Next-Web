@@ -53,6 +53,14 @@ const tr: LocaleType = {
     DeleteChat: "Seçili sohbeti silmeyi onaylıyor musunuz?",
     DeleteToast: "Sohbet Silindi",
     Revert: "Geri Al",
+    Login: {
+      Username: {
+        Label: "Обліковий запис:",
+        Placeholder: "Введіть свій обліковий запис",
+      },
+      Password: { Label: "Пароль:", Placeholder: "Введіть свій пароль" },
+      Button: "Вхід",
+    },
   },
   Settings: {
     Title: "Ayarlar",

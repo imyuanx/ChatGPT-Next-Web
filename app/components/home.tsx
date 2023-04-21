@@ -8,10 +8,7 @@ import { IconButton } from "./button";
 import styles from "./home.module.scss";
 
 import SettingsIcon from "../icons/settings.svg";
-import GithubIcon from "../icons/github.svg";
-import ChatGptIcon from "../icons/chatgpt.svg";
 
-import BotIcon from "../icons/bot.svg";
 import AddIcon from "../icons/add.svg";
 import LoadingIcon from "../icons/three-dots.svg";
 import CloseIcon from "../icons/close.svg";
@@ -24,13 +21,23 @@ import Locale from "../locales";
 import { Chat } from "./chat";
 
 import dynamic from "next/dynamic";
-import { REPO_URL } from "../constant";
 import { ErrorBoundary } from "./error";
+import Image from "next/image";
 
 export function Loading(props: { noLogo?: boolean }) {
   return (
     <div className={styles["loading-content"]}>
-      {!props.noLogo && <BotIcon />}
+      {!props.noLogo && (
+        <Image
+          className={[styles["user-avtar"], styles["sidebar-logo-img"]].join(
+            " ",
+          )}
+          src="/logo-256x256.webp"
+          width={32}
+          height={32}
+          alt="HAPPYINESS UNIVERSITY"
+        />
+      )}
       <LoadingIcon />
     </div>
   );
@@ -59,9 +66,18 @@ function PasswordInput(props: HTMLProps<HTMLInputElement>) {
         className={styles["password-input"]}
       />
       <IconButton
-        icon={visible ? <EyeIcon /> : <EyeOffIcon />}
+        icon={
+          visible ? (
+            <EyeIcon className={styles["window-icon-solid"]} />
+          ) : (
+            <EyeOffIcon className={styles["window-icon-solid"]} />
+          )
+        }
         onClick={changeVisibility}
-        className={styles["password-eye"]}
+        className={[
+          styles["password-eye"],
+          styles["password-eye-no-padding"],
+        ].join(" ")}
       />
     </div>
   );
@@ -205,10 +221,16 @@ function _Home() {
         className={styles.sidebar + ` ${showSideBar && styles["sidebar-show"]}`}
       >
         <div className={styles["sidebar-header"]}>
-          <div className={styles["sidebar-title"]}>牵手一生的小助理</div>
+          <div className={styles["sidebar-title"]}>幸福大学助教</div>
           <div className={styles["sidebar-sub-title"]}>您的私人 AI 助理</div>
           <div className={styles["sidebar-logo"]}>
-            <ChatGptIcon />
+            <Image
+              className={styles["sidebar-logo-img"]}
+              src="/logo-256x256.webp"
+              width={58}
+              height={58}
+              alt="HAPPYINESS UNIVERSITY"
+            />
           </div>
         </div>
 
@@ -226,13 +248,13 @@ function _Home() {
           <div className={styles["sidebar-actions"]}>
             <div className={styles["sidebar-action"] + " " + styles.mobile}>
               <IconButton
-                icon={<CloseIcon />}
+                icon={<CloseIcon className={styles["window-icon"]} />}
                 onClick={chatStore.deleteSession}
               />
             </div>
             <div className={styles["sidebar-action"]}>
               <IconButton
-                icon={<SettingsIcon />}
+                icon={<SettingsIcon className={styles["window-icon"]} />}
                 onClick={() => {
                   setOpenSettings(true);
                   setShowSideBar(false);
@@ -240,15 +262,10 @@ function _Home() {
                 shadow
               />
             </div>
-            <div className={styles["sidebar-action"]}>
-              <a href={REPO_URL} target="_blank">
-                <IconButton icon={<GithubIcon />} shadow />
-              </a>
-            </div>
           </div>
           <div>
             <IconButton
-              icon={<AddIcon />}
+              icon={<AddIcon className={styles["window-icon"]} />}
               text={Locale.Home.NewChat}
               onClick={() => {
                 createNewSession();
@@ -284,27 +301,28 @@ function _Home() {
       {!isLogin && (
         <div className={styles["login-container"]}>
           <div className={styles["login-item"]}>
-            <label>账号：</label>
+            <label>{Locale.Home.Login.Username.Label}</label>
             <input
               type="text"
               value={username}
+              placeholder={Locale.Home.Login.Username.Placeholder}
               onChange={(e) => setUsername(e.currentTarget.value)}
             />
             <div style={{ width: 40 }}></div>
           </div>
           <div className={styles["login-item"]}>
-            <label>密码：</label>
+            <label>{Locale.Home.Login.Password.Label}</label>
             <PasswordInput
               value={password}
               type="text"
-              placeholder={Locale.Settings.AccessCode.Placeholder}
+              placeholder={Locale.Home.Login.Password.Placeholder}
               onChange={(e) => setPassword(e.currentTarget.value)}
             />
           </div>
           <div>
             <IconButton
               icon={null}
-              text={"登录"}
+              text={Locale.Home.Login.Button}
               className={styles["login-btn"]}
               noDark
               onClick={onLogin}

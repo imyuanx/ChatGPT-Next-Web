@@ -55,6 +55,17 @@ const en: LocaleType = {
     DeleteChat: "Confirm to delete the selected conversation?",
     DeleteToast: "Chat Deleted",
     Revert: "Revert",
+    Login: {
+      Username: {
+        Label: "Username:",
+        Placeholder: "Input Username Here",
+      },
+      Password: {
+        Label: "Password",
+        Placeholder: "Input Password Here",
+      },
+      Button: "Login",
+    },
   },
   Settings: {
     Title: "Settings",

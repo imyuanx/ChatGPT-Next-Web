@@ -53,6 +53,17 @@ const de: LocaleType = {
     DeleteChat: "Bestätigen Sie, um das ausgewählte Gespräch zu löschen?",
     DeleteToast: "Chat gelöscht",
     Revert: "Zurücksetzen",
+    Login: {
+      Username: {
+        Label: "Kontonummer:",
+        Placeholder: "Konto erforderlich",
+      },
+      Password: {
+        Label: "Passwort:",
+        Placeholder: "Passwort erforderlich",
+      },
+      Button: "Anmelden",
+    },
   },
   Settings: {
     Title: "Einstellungen",

@@ -52,6 +52,17 @@ const jp = {
     DeleteChat: "選択したチャットを削除してもよろしいですか？",
     DeleteToast: "チャットが削除されました",
     Revert: "元に戻す",
+    Login: {
+      Username: {
+        Label: "アカウント:",
+        Placeholder: "アカウントを入力してください",
+      },
+      Password: {
+        Label: "パスワード:",
+        Placeholder: "パスワードを入力してください",
+      },
+      Button: "ログイン",
+    },
   },
   Settings: {
     Title: "設定",

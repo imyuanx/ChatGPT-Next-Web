@@ -70,7 +70,7 @@ export function Modal(props: ModalProps) {
         <div className={styles["modal-title"]}>{props.title}</div>
 
         <div className={styles["modal-close-btn"]} onClick={props.onClose}>
-          <CloseIcon />
+          <CloseIcon className={styles["window-icon"]} />
         </div>
       </div>
 
