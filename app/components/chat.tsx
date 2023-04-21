@@ -811,22 +811,7 @@ export function Chat(props: {
             );
           })}
         </div>
-        <div
-          style={{
-            position: "absolute",
-            display: "flex",
-            flexDirection: "column",
-            justifyContent: "center",
-            alignItems: "center",
-            textAlign: "center",
-            width: "100%",
-            height: "100%",
-            fontSize: 80,
-            fontWeight: 700,
-            color: "rgba(255, 255, 255, .1)",
-            pointerEvents: "none",
-          }}
-        >
+        <div className={styles["chat-body-bg"]}>
           <div>{`HAPPYINESS`}</div>
           <div>{`UNIVERSITY`}</div>
         </div>

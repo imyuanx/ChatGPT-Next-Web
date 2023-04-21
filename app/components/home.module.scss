@@ -238,17 +238,32 @@
   display: flex;
   justify-content: center;
   align-items: center;
-}
 
-.chat-body {
-  height: 100%;
-  width: 100%;
-  overflow: auto;
-  padding: 20px;
-  padding-bottom: 40px;
-  position: relative;
-  background-color: transparent;
-  z-index: 1;
+  .chat-body {
+    height: 100%;
+    width: 100%;
+    overflow: auto;
+    padding: 20px;
+    padding-bottom: 40px;
+    position: relative;
+    background-color: transparent;
+    z-index: 1;
+  }
+
+  .chat-body-bg {
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    width: 100%;
+    height: 100%;
+    font-size: 80px;
+    font-weight: 700;
+    color: rgba(255, 255, 255, 0.1);
+    pointer-events: none;
+  }
 }
 
 .chat-body-title {
