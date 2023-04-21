@@ -284,27 +284,28 @@ function _Home() {
       {!isLogin && (
         <div className={styles["login-container"]}>
           <div className={styles["login-item"]}>
-            <label>账号：</label>
+            <label>{Locale.Home.Login.Username.Label}</label>
             <input
               type="text"
               value={username}
+              placeholder={Locale.Home.Login.Username.Placeholder}
               onChange={(e) => setUsername(e.currentTarget.value)}
             />
             <div style={{ width: 40 }}></div>
           </div>
           <div className={styles["login-item"]}>
-            <label>密码：</label>
+            <label>{Locale.Home.Login.Password.Label}</label>
             <PasswordInput
               value={password}
               type="text"
-              placeholder={Locale.Settings.AccessCode.Placeholder}
+              placeholder={Locale.Home.Login.Password.Placeholder}
               onChange={(e) => setPassword(e.currentTarget.value)}
             />
           </div>
           <div>
             <IconButton
               icon={null}
-              text={"登录"}
+              text={Locale.Home.Login.Button}
               className={styles["login-btn"]}
               noDark
               onClick={onLogin}
