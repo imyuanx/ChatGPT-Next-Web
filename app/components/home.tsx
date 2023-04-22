@@ -199,7 +199,7 @@ const useHasHydrated = () => {
 function _Home() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-  const [isLogin, setIsLogin] = useState(true); // TEST:
+  const [isLogin, setIsLogin] = useState(false);
   const [createNewSession, currentIndex, removeSession] = useChatStore(
     (state) => [
       state.newSession,
