@@ -43,6 +43,31 @@ export function Loading(props: { noLogo?: boolean }) {
   );
 }
 
+export function Bow() {
+  return (
+    <div className={styles["sidebar-bow-box"]}>
+      <div className={styles["sidebar-bow"]}>
+        <Image src={"/bow.jpg"} width={160} height={160} alt="bow" />
+      </div>
+      {Array.from({ length: 2 }).map((_, index) => {
+        return (
+          <div className={styles["sidebar-bow-line-box"]} key={index}>
+            <Image
+              src={"/bow-line.jpg"}
+              alt="bow line"
+              className={[
+                styles["sidebar-bow-line"],
+                styles[`sidebar-bow-line-${index}`],
+              ].join(" ")}
+              fill
+            />
+          </div>
+        );
+      })}
+    </div>
+  );
+}
+
 const Settings = dynamic(async () => (await import("./settings")).Settings, {
   loading: () => <Loading noLogo />,
 });
@@ -174,7 +199,7 @@ const useHasHydrated = () => {
 function _Home() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-  const [isLogin, setIsLogin] = useState(false);
+  const [isLogin, setIsLogin] = useState(true); // TEST:
   const [createNewSession, currentIndex, removeSession] = useChatStore(
     (state) => [
       state.newSession,
@@ -214,24 +239,15 @@ function _Home() {
         config.tightBorder && !isMobileScreen()
           ? styles["tight-container"]
           : styles.container
-      }`}
-      style={{ position: "relative" }}
+      } ${isLogin && styles["overflow-container"]}`}
     >
       <div
         className={styles.sidebar + ` ${showSideBar && styles["sidebar-show"]}`}
       >
+        <Bow />
         <div className={styles["sidebar-header"]}>
           <div className={styles["sidebar-title"]}>幸福大学助教</div>
           <div className={styles["sidebar-sub-title"]}>您的私人 AI 助理</div>
-          <div className={styles["sidebar-logo"]}>
-            <Image
-              className={styles["sidebar-logo-img"]}
-              src="/logo-256x256.webp"
-              width={58}
-              height={58}
-              alt="HAPPYINESS UNIVERSITY"
-            />
-          </div>
         </div>
 
         <div
