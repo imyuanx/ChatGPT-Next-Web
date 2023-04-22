@@ -47,13 +47,13 @@ export function Bow() {
   return (
     <div className={styles["sidebar-bow-box"]}>
       <div className={styles["sidebar-bow"]}>
-        <Image src={"/bow.jpg"} width={160} height={160} alt="bow" />
+        <Image src={"/bow.webp"} width={160} height={160} alt="bow" />
       </div>
       {Array.from({ length: 2 }).map((_, index) => {
         return (
           <div className={styles["sidebar-bow-line-box"]} key={index}>
             <Image
-              src={"/bow-line.jpg"}
+              src={"/bow-line.webp"}
               alt="bow line"
               className={[
                 styles["sidebar-bow-line"],
