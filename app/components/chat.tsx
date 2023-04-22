@@ -544,7 +544,7 @@ export function Chat(props: {
     }
   };
 
-  const findLastUesrIndex = (messageId: number) => {
+  const findLastUserIndex = (messageId: number) => {
     // find last user input message and resend
     let lastUserMessageIndex: number | null = null;
     for (let i = 0; i < session.messages.length; i += 1) {
@@ -567,14 +567,14 @@ export function Chat(props: {
   };
 
   const onDelete = (botMessageId: number) => {
-    const userIndex = findLastUesrIndex(botMessageId);
+    const userIndex = findLastUserIndex(botMessageId);
     if (userIndex === null) return;
     deleteMessage(userIndex);
   };
 
   const onResend = (botMessageId: number) => {
     // find last user input message and resend
-    const userIndex = findLastUesrIndex(botMessageId);
+    const userIndex = findLastUserIndex(botMessageId);
     if (userIndex === null) return;
 
     setIsLoading(true);
