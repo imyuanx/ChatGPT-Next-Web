@@ -426,7 +426,7 @@ export function Settings(props: { closeSettings: () => void }) {
         </List>
 
         <List>
-          {enabledAccessControl ? (
+          {/* {enabledAccessControl ? (
             <SettingItem
               title={Locale.Settings.AccessCode.Title}
               subTitle={Locale.Settings.AccessCode.SubTitle}
@@ -480,7 +480,7 @@ export function Settings(props: { closeSettings: () => void }) {
                 onClick={checkUsage}
               />
             )}
-          </SettingItem>
+          </SettingItem> */}
 
           <SettingItem
             title={Locale.Settings.HistoryCount.Title}
