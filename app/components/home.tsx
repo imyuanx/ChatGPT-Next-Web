@@ -311,6 +311,7 @@ function _Home() {
             key="chat"
             showSideBar={() => setShowSideBar(true)}
             sideBarShowing={showSideBar}
+            isLogin={isLogin}
           />
         )}
       </div>
