@@ -4,7 +4,7 @@ import styles from "./button.module.scss";
 
 export function IconButton(props: {
   onClick?: () => void;
-  icon: JSX.Element | null;
+  icon?: JSX.Element | undefined;
   text?: string;
   bordered?: boolean;
   shadow?: boolean;
@@ -26,7 +26,7 @@ export function IconButton(props: {
       disabled={props.disabled}
       role="button"
     >
-      {props.icon !== null && (
+      {props.icon && (
         <div
           className={
             styles["icon-button-icon"] + ` ${props.noDark && "no-dark"}`
@@ -36,7 +36,15 @@ export function IconButton(props: {
         </div>
       )}
       {props.text && (
-        <div className={styles["icon-button-text"]}>{props.text}</div>
+        <div
+          className={
+            props.icon
+              ? styles["icon-button-text"]
+              : styles["icon-button-text-no-icon"]
+          }
+        >
+          {props.text}
+        </div>
       )}
     </button>
   );

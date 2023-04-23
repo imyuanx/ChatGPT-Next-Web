@@ -316,33 +316,34 @@ function _Home() {
       </div>
       {!isLogin && (
         <div className={styles["login-container"]}>
-          <div className={styles["login-item"]}>
-            <label>{Locale.Home.Login.Username.Label}</label>
-            <input
-              type="text"
-              value={username}
-              placeholder={Locale.Home.Login.Username.Placeholder}
-              onChange={(e) => setUsername(e.currentTarget.value)}
-            />
-            <div style={{ width: 40 }}></div>
-          </div>
-          <div className={styles["login-item"]}>
-            <label>{Locale.Home.Login.Password.Label}</label>
-            <PasswordInput
-              value={password}
-              type="text"
-              placeholder={Locale.Home.Login.Password.Placeholder}
-              onChange={(e) => setPassword(e.currentTarget.value)}
-            />
-          </div>
-          <div>
-            <IconButton
-              icon={null}
-              text={Locale.Home.Login.Button}
-              className={styles["login-btn"]}
-              noDark
-              onClick={onLogin}
-            />
+          <div className={styles["login-item-box"]}>
+            <div className={styles["login-item"]}>
+              <label>{Locale.Home.Login.Username.Label}</label>
+              <input
+                type="text"
+                value={username}
+                className={styles["login-item-input"]}
+                placeholder={Locale.Home.Login.Username.Placeholder}
+                onChange={(e) => setUsername(e.currentTarget.value)}
+              />
+            </div>
+            <div className={styles["login-item"]}>
+              <label>{Locale.Home.Login.Password.Label}</label>
+              <PasswordInput
+                value={password}
+                type="text"
+                placeholder={Locale.Home.Login.Password.Placeholder}
+                onChange={(e) => setPassword(e.currentTarget.value)}
+              />
+            </div>
+            <div className={styles["login-item-btn"]}>
+              <IconButton
+                text={Locale.Home.Login.Button}
+                className={styles["login-btn"]}
+                noDark
+                onClick={onLogin}
+              />
+            </div>
           </div>
         </div>
       )}

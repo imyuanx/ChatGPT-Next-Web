@@ -581,10 +581,15 @@
   gap: 10px;
 }
 
-.login-item {
-  width: 500px;
+.login-item-box {
   display: flex;
-  justify-content: center;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.login-item {
+  display: flex;
+  justify-content: flex-start;
   align-items: center;
   gap: 6px;
   label {
@@ -593,8 +598,16 @@
   }
 }
 
+.login-item-input {
+  max-width: unset !important;
+}
+
+.login-item-btn {
+  display: flex;
+  justify-content: center;
+}
+
 .password-input-container {
-  max-width: 50%;
   display: flex;
   justify-content: flex-end;
 
