@@ -1,3 +1,4 @@
+// Other Color Matching
 // @mixin light {
 //   --theme: light;
 
@@ -17,6 +18,28 @@
 
 //   /* stroke */
 //   --border-in-light: 1px solid rgb(222, 222, 222);
+// }
+
+// @mixin dark {
+//   --theme: dark;
+
+//   /* color */
+//   --white: rgb(30, 30, 30);
+//   --white-second: rgb(21, 21, 21);
+//   --black: rgb(187, 187, 187);
+//   --gray: rgb(21, 21, 21);
+//   --primary: rgb(29, 147, 171);
+//   --second: rgb(27 38 42);
+//   --hover-color: #323232;
+//   --bar-color: rgba(255, 255, 255, 0.1);
+
+//   --border-in-light: 1px solid rgba(255, 255, 255, 0.192);
+
+//   --theme-color: var(--gray);
+
+//   div:not(.no-dark) > svg {
+//     filter: invert(0.5);
+//   }
 // }
 
 @mixin light {
@@ -45,15 +68,14 @@
   --theme: dark;
 
   /* color */
-  --white: rgb(30, 30, 30);
+  --white: rgb(48, 48, 48);
   --white-second: rgb(21, 21, 21);
-  --black: rgb(187, 187, 187);
+  --black: #fff;
   --gray: rgb(21, 21, 21);
-  --primary: rgb(29, 147, 171);
-  --second: rgb(27 38 42);
-  --hover-color: #323232;
-
-  --bar-color: rgba(255, 255, 255, 0.1);
+  --primary: #e8672b;
+  --second: #ff6b20;
+  --hover-color: rgba(48, 48, 48, 0.8);
+  --bar-color: rgba(0, 0, 0, 0.1);
 
   --border-in-light: 1px solid rgba(255, 255, 255, 0.192);
 
