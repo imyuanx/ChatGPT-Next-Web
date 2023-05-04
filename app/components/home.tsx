@@ -2,7 +2,7 @@
 
 require("../polyfill");
 
-import { useState, useEffect, useRef, HTMLProps } from "react";
+import { useState, useEffect, useRef } from "react";
 
 import { IconButton } from "./button";
 import styles from "./home.module.scss";
@@ -12,13 +12,12 @@ import SettingsIcon from "../icons/settings.svg";
 import AddIcon from "../icons/add.svg";
 import LoadingIcon from "../icons/three-dots.svg";
 import CloseIcon from "../icons/close.svg";
-import EyeIcon from "../icons/eye.svg";
-import EyeOffIcon from "../icons/eye-off.svg";
 
-import { useChatStore } from "../store";
+import { useChatStore, useAuthStore } from "../store";
 import { getCSSVar, isMobileScreen } from "../utils";
 import Locale from "../locales";
 import { Chat } from "./chat";
+import Login from "./login";
 
 import dynamic from "next/dynamic";
 import { ErrorBoundary } from "./error";
@@ -75,38 +74,6 @@ const Settings = dynamic(async () => (await import("./settings")).Settings, {
 const ChatList = dynamic(async () => (await import("./chat-list")).ChatList, {
   loading: () => <Loading noLogo />,
 });
-
-function PasswordInput(props: HTMLProps<HTMLInputElement>) {
-  const [visible, setVisible] = useState(false);
-
-  function changeVisibility() {
-    setVisible(!visible);
-  }
-
-  return (
-    <div className={styles["password-input-container"]}>
-      <input
-        {...props}
-        type={visible ? "text" : "password"}
-        className={styles["password-input"]}
-      />
-      <IconButton
-        icon={
-          visible ? (
-            <EyeIcon className={styles["window-icon-solid"]} />
-          ) : (
-            <EyeOffIcon className={styles["window-icon-solid"]} />
-          )
-        }
-        onClick={changeVisibility}
-        className={[
-          styles["password-eye"],
-          styles["password-eye-no-padding"],
-        ].join(" ")}
-      />
-    </div>
-  );
-}
 
 function useSwitchTheme() {
   const config = useChatStore((state) => state.config);
@@ -197,9 +164,6 @@ const useHasHydrated = () => {
 };
 
 function _Home() {
-  const [username, setUsername] = useState("");
-  const [password, setPassword] = useState("");
-  const [isLogin, setIsLogin] = useState(false);
   const [createNewSession, currentIndex, removeSession] = useChatStore(
     (state) => [
       state.newSession,
@@ -208,6 +172,7 @@ function _Home() {
     ],
   );
   const chatStore = useChatStore();
+  const { isLogin, initToken } = useAuthStore();
   const loading = !useHasHydrated();
   const [showSideBar, setShowSideBar] = useState(true);
 
@@ -220,18 +185,13 @@ function _Home() {
 
   useSwitchTheme();
 
+  useEffect(() => {
+    initToken();
+  }, []);
+
   if (loading) {
     return <Loading />;
   }
-
-  // login
-  const onLogin = () => {
-    if (username === "qianshouyisheng" && password === "qianshouyisheng123") {
-      setIsLogin(true);
-    } else {
-      alert("帐号或密码错误");
-    }
-  };
 
   return (
     <div
@@ -311,43 +271,10 @@ function _Home() {
             key="chat"
             showSideBar={() => setShowSideBar(true)}
             sideBarShowing={showSideBar}
-            isLogin={isLogin}
           />
         )}
       </div>
-      {!isLogin && (
-        <div className={styles["login-container"]}>
-          <div className={styles["login-item-box"]}>
-            <div className={styles["login-item"]}>
-              <label>{Locale.Home.Login.Username.Label}</label>
-              <input
-                type="text"
-                value={username}
-                className={styles["login-item-input"]}
-                placeholder={Locale.Home.Login.Username.Placeholder}
-                onChange={(e) => setUsername(e.currentTarget.value)}
-              />
-            </div>
-            <div className={styles["login-item"]}>
-              <label>{Locale.Home.Login.Password.Label}</label>
-              <PasswordInput
-                value={password}
-                type="text"
-                placeholder={Locale.Home.Login.Password.Placeholder}
-                onChange={(e) => setPassword(e.currentTarget.value)}
-              />
-            </div>
-            <div className={styles["login-item-btn"]}>
-              <IconButton
-                text={Locale.Home.Login.Button}
-                className={styles["login-btn"]}
-                noDark
-                onClick={onLogin}
-              />
-            </div>
-          </div>
-        </div>
-      )}
+      <Login />
     </div>
   );
 }

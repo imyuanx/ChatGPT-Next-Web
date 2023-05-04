@@ -6,8 +6,7 @@ const app_name = "Helper";
 const en: LocaleType = {
   WIP: "WIP...",
   Error: {
-    Unauthorized:
-      "Unauthorized access, please enter access code in settings page.",
+    Unauthorized: "The session has expired, please log in again.",
   },
   ChatItem: {
     ChatItemCount: (count: number) => `${count} messages`,

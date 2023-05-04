@@ -2,6 +2,7 @@ import { create } from "zustand";
 import { persist } from "zustand/middleware";
 import Fuse from "fuse.js";
 import { getLang } from "../locales";
+import { axios } from "@/app/requests";
 
 export interface Prompt {
   id?: number;
@@ -130,35 +131,32 @@ export const usePromptStore = create<PromptStore>()(
 
         type PromptList = Array<[string, string]>;
 
-        fetch(PROMPT_URL)
-          .then((res) => res.json())
-          .then((res) => {
-            let fetchPrompts = [res.en, res.cn];
-            if (getLang() === "cn") {
-              fetchPrompts = fetchPrompts.reverse();
-            }
-            const builtinPrompts = fetchPrompts.map(
-              (promptList: PromptList) => {
-                return promptList.map(
-                  ([title, content]) =>
-                    ({
-                      id: Math.random(),
-                      title,
-                      content,
-                    } as Prompt),
-                );
-              },
+        axios.get(PROMPT_URL).then((res) => {
+          console.log("PROMPT_URL/res", res);
+
+          let fetchPrompts = [res.en, res.cn];
+          if (getLang() === "cn") {
+            fetchPrompts = fetchPrompts.reverse();
+          }
+          const builtinPrompts = fetchPrompts.map((promptList: PromptList) => {
+            return promptList.map(
+              ([title, content]) =>
+                ({
+                  id: Math.random(),
+                  title,
+                  content,
+                } as Prompt),
             );
-
-            const userPrompts =
-              usePromptStore.getState().getUserPrompts() ?? [];
-
-            const allPromptsForSearch = builtinPrompts
-              .reduce((pre, cur) => pre.concat(cur), [])
-              .filter((v) => !!v.title && !!v.content);
-            SearchService.count.builtin = res.en.length + res.cn.length;
-            SearchService.init(allPromptsForSearch, userPrompts);
           });
+
+          const userPrompts = usePromptStore.getState().getUserPrompts() ?? [];
+
+          const allPromptsForSearch = builtinPrompts
+            .reduce((pre, cur) => pre.concat(cur), [])
+            .filter((v) => !!v.title && !!v.content);
+          SearchService.count.builtin = res.en.length + res.cn.length;
+          SearchService.init(allPromptsForSearch, userPrompts);
+        });
       },
     },
   ),

@@ -5,7 +5,7 @@ const app_name = "幸福大学助教";
 const cn = {
   WIP: "该功能仍在开发中……",
   Error: {
-    Unauthorized: "现在是未授权状态，请点击左下角设置按钮输入访问密码。",
+    Unauthorized: "会话已过期，请重新登录。",
   },
   ChatItem: {
     ChatItemCount: (count: number) => `${count} 条对话`,

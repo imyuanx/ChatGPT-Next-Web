@@ -4,7 +4,7 @@ const jp = {
   WIP: "この機能は開発中です……",
   Error: {
     Unauthorized:
-      "現在は未承認状態です。左下の設定ボタンをクリックし、アクセスパスワードを入力してください。",
+      "セッションが期限切れになりましたので、再度ログインしてください。",
   },
   ChatItem: {
     ChatItemCount: (count: number) => `${count} 通のチャット`,

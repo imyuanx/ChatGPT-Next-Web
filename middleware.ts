@@ -1,12 +1,14 @@
 import { NextRequest, NextResponse } from "next/server";
-import { getServerSideConfig } from "./app/config/server";
+import { getServerSideConfig } from "@/app/config/server";
 import md5 from "spark-md5";
+import { jwtVerify } from "jose";
 
 export const config = {
-  matcher: ["/api/openai", "/api/chat-stream"],
+  matcher: ["/(api/(?!auth|config).*)"],
 };
 
 const serverConfig = getServerSideConfig();
+const JWT_SECRET_KEY = serverConfig.secret;
 
 function getIP(req: NextRequest) {
   let ip = req.ip ?? req.headers.get("x-real-ip");
@@ -19,9 +21,10 @@ function getIP(req: NextRequest) {
   return ip;
 }
 
-export function middleware(req: NextRequest) {
+export async function middleware(req: NextRequest) {
   const accessCode = req.headers.get("access-code");
   const token = req.headers.get("token");
+  const authorization = req.headers.get("authorization");
   const hashedCode = md5.hash(accessCode ?? "").trim();
 
   console.log("[Auth] allowed hashed codes: ", [...serverConfig.codes]);
@@ -30,6 +33,35 @@ export function middleware(req: NextRequest) {
   console.log("[User IP] ", getIP(req));
   console.log("[Time] ", new Date().toLocaleString());
 
+  if (!authorization) {
+    return NextResponse.json(
+      {
+        error: true,
+        msg: "No token, authorization denied",
+      },
+      { status: 401 },
+    );
+  }
+
+  try {
+    const token = authorization?.split("Bearer ")?.[1];
+    const secret = new TextEncoder().encode(JWT_SECRET_KEY);
+
+    const {
+      payload: { id: userId },
+    } = await jwtVerify(token, secret);
+    req.headers.set("userId", userId as string);
+  } catch (error) {
+    console.error("[Authorization] error:", error);
+    return NextResponse.json(
+      {
+        error: true,
+        msg: "The session has expired, please log in again",
+      },
+      { status: 401 },
+    );
+  }
+
   if (serverConfig.needCode && !serverConfig.codes.has(hashedCode) && !token) {
     return NextResponse.json(
       {
@@ -37,9 +69,7 @@ export function middleware(req: NextRequest) {
         needAccessCode: true,
         msg: "Please go settings page and fill your access code.",
       },
-      {
-        status: 401,
-      },
+      { status: 401 },
     );
   }
 
@@ -53,11 +83,9 @@ export function middleware(req: NextRequest) {
       return NextResponse.json(
         {
           error: true,
-          msg: "Empty Api Key",
+          msg: "Internal error (code: 6001)",
         },
-        {
-          status: 401,
-        },
+        { status: 500 },
       );
     }
   } else {

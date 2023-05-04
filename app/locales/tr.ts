@@ -4,8 +4,7 @@ import type { LocaleType } from "./index";
 const tr: LocaleType = {
   WIP: "Çalışma devam ediyor...",
   Error: {
-    Unauthorized:
-      "Yetkisiz erişim, lütfen erişim kodunu ayarlar sayfasından giriniz.",
+    Unauthorized: "Oturum süresi doldu, lütfen yeniden giriş yapın.",
   },
   ChatItem: {
     ChatItemCount: (count: number) => `${count} mesaj`,

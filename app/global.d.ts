@@ -9,3 +9,12 @@ declare module "*.scss" {
 }
 
 declare module "*.svg";
+
+type User = {
+  id: string;
+  username: string;
+  nickname: string;
+  password: string;
+  email?: string;
+  phone?: string;
+};

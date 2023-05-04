@@ -4,8 +4,7 @@ import type { LocaleType } from "./index";
 const es: LocaleType = {
   WIP: "En construcción...",
   Error: {
-    Unauthorized:
-      "Acceso no autorizado, por favor ingrese el código de acceso en la página de configuración.",
+    Unauthorized: "La sesión ha expirado, por favor inicie sesión de nuevo.",
   },
   ChatItem: {
     ChatItemCount: (count: number) => `${count} mensajes`,
