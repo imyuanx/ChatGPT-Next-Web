@@ -52,6 +52,10 @@ const cn = {
     DeleteChat: "确认删除选中的对话？",
     DeleteToast: "已删除会话",
     Revert: "撤销",
+  },
+  Auth: {
+    Toast1: "请输入用户名和密码",
+    Toast2: "两个密码必须相同",
     Login: {
       Username: {
         Label: "账号：",
@@ -62,6 +66,29 @@ const cn = {
         Placeholder: "请输入密码",
       },
       Button: "登录",
+    },
+    Register: {
+      Username: {
+        Label: "账号：",
+        Placeholder: "请输入账号",
+      },
+      Password: {
+        Label: "密码：",
+        Placeholder: "请输入密码",
+      },
+      RepPassword: {
+        Label: "确认密码：",
+        Placeholder: "请再次输入密码",
+      },
+      Email: {
+        Label: "邮箱：",
+        Placeholder: "请输入邮箱",
+      },
+      Phone: {
+        Label: "手机：",
+        Placeholder: "请输入手机",
+      },
+      Button: "注册",
     },
   },
   Settings: {

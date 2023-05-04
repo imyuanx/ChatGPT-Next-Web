@@ -53,16 +53,43 @@ const de: LocaleType = {
     DeleteChat: "Bestätigen Sie, um das ausgewählte Gespräch zu löschen?",
     DeleteToast: "Chat gelöscht",
     Revert: "Zurücksetzen",
+  },
+  Auth: {
+    Toast1: "Bitte geben Sie Benutzername und Passwort ein",
+    Toast2: "Die beiden Passwörter müssen identisch sein",
     Login: {
       Username: {
-        Label: "Kontonummer:",
-        Placeholder: "Konto erforderlich",
+        Label: "Benutzername:",
+        Placeholder: "Bitte geben Sie einen Benutzernamen ein",
       },
       Password: {
         Label: "Passwort:",
-        Placeholder: "Passwort erforderlich",
+        Placeholder: "Bitte geben Sie ein Passwort ein",
       },
-      Button: "Anmelden",
+      Button: "Einloggen",
+    },
+    Register: {
+      Username: {
+        Label: "Benutzername:",
+        Placeholder: "Bitte geben Sie einen Benutzernamen ein",
+      },
+      Password: {
+        Label: "Passwort:",
+        Placeholder: "Bitte geben Sie ein Passwort ein",
+      },
+      RepPassword: {
+        Label: "Passwort bestätigen:",
+        Placeholder: "Bitte geben Sie das Passwort erneut ein",
+      },
+      Email: {
+        Label: "E-Mail:",
+        Placeholder: "Bitte geben Sie eine E-Mail-Adresse ein",
+      },
+      Phone: {
+        Label: "Telefon:",
+        Placeholder: "Bitte geben Sie eine Telefonnummer ein",
+      },
+      Button: "Registrieren",
     },
   },
   Settings: {

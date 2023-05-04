@@ -51,10 +51,43 @@ const tw: LocaleType = {
     DeleteChat: "確定要刪除選取的對話嗎？",
     DeleteToast: "已刪除對話",
     Revert: "撤銷",
+  },
+  Auth: {
+    Toast1: "請輸入使用者名稱和密碼",
+    Toast2: "兩個密碼必須相同",
     Login: {
-      Username: { Label: "帳號:", Placeholder: "請輸入帳號" },
-      Password: { Label: "密碼:", Placeholder: "請輸入密碼" },
-      Button: "登入",
+      Username: {
+        Label: "帳號：",
+        Placeholder: "請輸入帳號",
+      },
+      Password: {
+        Label: "密碼：",
+        Placeholder: "請輸入密碼",
+      },
+      Button: "登錄",
+    },
+    Register: {
+      Username: {
+        Label: "帳號：",
+        Placeholder: "請輸入帳號",
+      },
+      Password: {
+        Label: "密碼：",
+        Placeholder: "請輸入密碼",
+      },
+      RepPassword: {
+        Label: "確認密碼：",
+        Placeholder: "請再次輸入密碼",
+      },
+      Email: {
+        Label: "電子郵件：",
+        Placeholder: "請輸入電子郵件",
+      },
+      Phone: {
+        Label: "手機：",
+        Placeholder: "請輸入手機",
+      },
+      Button: "註冊",
     },
   },
   Settings: {

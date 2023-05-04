@@ -10,6 +10,12 @@ export interface AuthStore {
   login: (username: string, password: string) => Promise<void>;
   initToken: (token?: string) => void;
   logout: () => void;
+  register: (
+    username: string,
+    password: string,
+    email?: string,
+    phone?: string,
+  ) => Promise<void>;
 }
 
 export const AUTH_KEY = "chat-auth";
@@ -63,6 +69,26 @@ export const useAuthStore = create<AuthStore>()(
           userInfo: {},
           isLogin: false,
         }));
+      },
+      async register(username, password, email, phone) {
+        try {
+          const response = (await axios.post(
+            "/api/user",
+            { username, password, email, phone },
+            {
+              headers: { "Content-Type": "application/json" },
+            },
+          )) as {
+            error: boolean;
+            msg?: string;
+            id?: string;
+          };
+          if (!response.error) {
+            showToast("Register successfully"); // TODO: I18n
+          }
+        } catch (error) {
+          console.error("[Fetch Upstream Commit Id]", error);
+        }
       },
     }),
     {

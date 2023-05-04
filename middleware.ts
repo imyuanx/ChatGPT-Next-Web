@@ -4,7 +4,7 @@ import md5 from "spark-md5";
 import { jwtVerify } from "jose";
 
 export const config = {
-  matcher: ["/(api/(?!auth|config).*)"],
+  matcher: ["/(api/(?!auth|config|user).*)"],
 };
 
 const serverConfig = getServerSideConfig();

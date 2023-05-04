@@ -52,13 +52,43 @@ const tr: LocaleType = {
     DeleteChat: "Seçili sohbeti silmeyi onaylıyor musunuz?",
     DeleteToast: "Sohbet Silindi",
     Revert: "Geri Al",
+  },
+  Auth: {
+    Toast1: "Kullanıcı adı ve Şifre giriniz",
+    Toast2: "İki şifre aynı olmalıdır",
     Login: {
       Username: {
-        Label: "Обліковий запис:",
-        Placeholder: "Введіть свій обліковий запис",
+        Label: "Kullanıcı Adı:",
+        Placeholder: "Kullanıcı adınızı girin",
       },
-      Password: { Label: "Пароль:", Placeholder: "Введіть свій пароль" },
-      Button: "Вхід",
+      Password: {
+        Label: "Şifre:",
+        Placeholder: "Şifrenizi girin",
+      },
+      Button: "Giriş",
+    },
+    Register: {
+      Username: {
+        Label: "Kullanıcı Adı:",
+        Placeholder: "Kullanıcı adınızı girin",
+      },
+      Password: {
+        Label: "Şifre:",
+        Placeholder: "Şifrenizi girin",
+      },
+      RepPassword: {
+        Label: "Şifre Tekrar:",
+        Placeholder: "Şifrenizi tekrar girin",
+      },
+      Email: {
+        Label: "E-posta:",
+        Placeholder: "E-postanızı girin",
+      },
+      Phone: {
+        Label: "Telefon:",
+        Placeholder: "Telefon numaranızı girin",
+      },
+      Button: "Kayıt Ol",
     },
   },
   Settings: {
