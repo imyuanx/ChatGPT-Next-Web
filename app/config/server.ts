@@ -3,6 +3,7 @@ import md5 from "spark-md5";
 declare global {
   namespace NodeJS {
     interface ProcessEnv {
+      JWT_SECRET_KEY: string;
       OPENAI_API_KEY?: string;
       CODE?: string;
       PROXY_URL?: string;
@@ -30,13 +31,22 @@ export const getServerSideConfig = () => {
       "[Server Config] you are importing a nodejs-only module outside of nodejs",
     );
   }
+  const { JWT_SECRET_KEY, OPENAI_API_KEY, CODE, PROXY_URL, VERCEL } =
+    process.env;
+
+  if (!JWT_SECRET_KEY || JWT_SECRET_KEY.length === 0) {
+    throw new Error(
+      "[Server Config] The environment variable JWT_SECRET_KEY is not set.",
+    );
+  }
 
   return {
-    apiKey: process.env.OPENAI_API_KEY,
-    code: process.env.CODE,
+    secret: JWT_SECRET_KEY,
+    apiKey: OPENAI_API_KEY,
+    code: CODE,
     codes: ACCESS_CODES,
     needCode: ACCESS_CODES.size > 0,
-    proxyUrl: process.env.PROXY_URL,
-    isVercel: !!process.env.VERCEL,
+    proxyUrl: PROXY_URL,
+    isVercel: !!VERCEL,
   };
 };

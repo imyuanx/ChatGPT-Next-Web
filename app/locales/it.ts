@@ -5,7 +5,7 @@ const it: LocaleType = {
   WIP: "Work in progress...",
   Error: {
     Unauthorized:
-      "Accesso non autorizzato, inserire il codice di accesso nella pagina delle impostazioni.",
+      "La sessione è scaduta, si prega di effettuare di nuovo l'accesso.",
   },
   ChatItem: {
     ChatItemCount: (count: number) => `${count} messaggi`,
@@ -53,13 +53,43 @@ const it: LocaleType = {
     DeleteChat: "Confermare la cancellazione della conversazione selezionata?",
     DeleteToast: "Chat Cancellata",
     Revert: "Revert",
+  },
+  Auth: {
+    Toast1: "Inserisci nome utente e password",
+    Toast2: "Le due password devono essere identiche",
     Login: {
-      Username: { Label: "Account:", Placeholder: "Inserisci il tuo account" },
+      Username: {
+        Label: "Nome utente:",
+        Placeholder: "Inserisci il nome utente",
+      },
       Password: {
         Label: "Password:",
-        Placeholder: "Inserisci la tua password",
+        Placeholder: "Inserisci la password",
       },
-      Button: "Accedi",
+      Button: "Login",
+    },
+    Register: {
+      Username: {
+        Label: "Nome utente:",
+        Placeholder: "Inserisci il nome utente",
+      },
+      Password: {
+        Label: "Password:",
+        Placeholder: "Inserisci la password",
+      },
+      RepPassword: {
+        Label: "Conferma password:",
+        Placeholder: "Inserisci di nuovo la password",
+      },
+      Email: {
+        Label: "Email:",
+        Placeholder: "Inserisci l'indirizzo email",
+      },
+      Phone: {
+        Label: "Telefono:",
+        Placeholder: "Inserisci il numero di telefono",
+      },
+      Button: "Registrati",
     },
   },
   Settings: {

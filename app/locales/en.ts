@@ -6,8 +6,7 @@ const app_name = "Helper";
 const en: LocaleType = {
   WIP: "WIP...",
   Error: {
-    Unauthorized:
-      "Unauthorized access, please enter access code in settings page.",
+    Unauthorized: "The session has expired, please log in again.",
   },
   ChatItem: {
     ChatItemCount: (count: number) => `${count} messages`,
@@ -55,16 +54,43 @@ const en: LocaleType = {
     DeleteChat: "Confirm to delete the selected conversation?",
     DeleteToast: "Chat Deleted",
     Revert: "Revert",
+  },
+  Auth: {
+    Toast1: "Please enter username and password",
+    Toast2: "The two passwords must be identical",
     Login: {
       Username: {
         Label: "Username:",
-        Placeholder: "Input Username Here",
+        Placeholder: "Please enter username",
       },
       Password: {
-        Label: "Password",
-        Placeholder: "Input Password Here",
+        Label: "Password:",
+        Placeholder: "Please enter password",
       },
       Button: "Login",
+    },
+    Register: {
+      Username: {
+        Label: "Username:",
+        Placeholder: "Please enter username",
+      },
+      Password: {
+        Label: "Password:",
+        Placeholder: "Please enter password",
+      },
+      RepPassword: {
+        Label: "Confirm Password:",
+        Placeholder: "Please enter password again",
+      },
+      Email: {
+        Label: "Email:",
+        Placeholder: "Please enter email",
+      },
+      Phone: {
+        Label: "Phone:",
+        Placeholder: "Please enter phone",
+      },
+      Button: "Register",
     },
   },
   Settings: {

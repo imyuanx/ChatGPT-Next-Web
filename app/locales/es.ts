@@ -4,8 +4,7 @@ import type { LocaleType } from "./index";
 const es: LocaleType = {
   WIP: "En construcción...",
   Error: {
-    Unauthorized:
-      "Acceso no autorizado, por favor ingrese el código de acceso en la página de configuración.",
+    Unauthorized: "La sesión ha expirado, por favor inicie sesión de nuevo.",
   },
   ChatItem: {
     ChatItemCount: (count: number) => `${count} mensajes`,
@@ -53,6 +52,10 @@ const es: LocaleType = {
     DeleteChat: "¿Confirmar eliminación de la conversación seleccionada?",
     DeleteToast: "Chat Deleted",
     Revert: "Revert",
+  },
+  Auth: {
+    Toast1: "Por favor ingrese su nombre de usuario y contraseña",
+    Toast2: "Las dos contraseñas deben ser iguales",
     Login: {
       Username: {
         Label: "Cuenta:",
@@ -63,6 +66,29 @@ const es: LocaleType = {
         Placeholder: "Por favor ingrese su contraseña",
       },
       Button: "Iniciar sesión",
+    },
+    Register: {
+      Username: {
+        Label: "Cuenta:",
+        Placeholder: "Por favor ingrese su cuenta",
+      },
+      Password: {
+        Label: "Contraseña:",
+        Placeholder: "Por favor ingrese su contraseña",
+      },
+      RepPassword: {
+        Label: "Confirmar contraseña:",
+        Placeholder: "Por favor ingrese su contraseña nuevamente",
+      },
+      Email: {
+        Label: "Correo electrónico:",
+        Placeholder: "Por favor ingrese su correo electrónico",
+      },
+      Phone: {
+        Label: "Teléfono:",
+        Placeholder: "Por favor ingrese su número de teléfono",
+      },
+      Button: "Registro",
     },
   },
   Settings: {

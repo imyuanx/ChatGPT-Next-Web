@@ -29,6 +29,7 @@ import {
   createMessage,
   useAccessStore,
   Theme,
+  useAuthStore,
 } from "../store";
 
 import {
@@ -423,11 +424,11 @@ export function ChatActions(props: {
 export function Chat(props: {
   showSideBar?: () => void;
   sideBarShowing?: boolean;
-  isLogin: boolean;
 }) {
   type RenderMessage = Message & { preview?: boolean };
 
   const chatStore = useChatStore();
+  const { isLogin } = useAuthStore();
   const [session, sessionIndex] = useChatStore((state) => [
     state.currentSession(),
     state.currentSessionIndex,
@@ -643,7 +644,7 @@ export function Chat(props: {
 
   // Auto focus
   useEffect(() => {
-    if ((props.sideBarShowing && isMobileScreen()) || !props.isLogin) return;
+    if ((props.sideBarShowing && isMobileScreen()) || !isLogin) return;
     inputRef.current?.focus();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);

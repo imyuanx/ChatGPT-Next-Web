@@ -1,6 +1,13 @@
 import type { ChatRequest, ChatResponse } from "./api/openai/typing";
-import { Message, ModelConfig, useAccessStore, useChatStore } from "./store";
+import {
+  Message,
+  ModelConfig,
+  useAccessStore,
+  useAuthStore,
+  useChatStore,
+} from "./store";
 import { showToast } from "./components/ui-lib";
+import orgAxios from "axios";
 
 const TIME_OUT_MS = 60000;
 
@@ -50,14 +57,14 @@ function getHeaders() {
 
 export function requestOpenaiClient(path: string) {
   return (body: any, method = "POST") =>
-    fetch("/api/openai?_vercel_no_cache=1", {
+    axios("/api/openai?_vercel_no_cache=1", {
       method,
       headers: {
         "Content-Type": "application/json",
         path,
         ...getHeaders(),
       },
-      body: body && JSON.stringify(body),
+      data: body && JSON.stringify(body),
     });
 }
 
@@ -67,10 +74,9 @@ export async function requestChat(messages: Message[]) {
   const res = await requestOpenaiClient("v1/chat/completions")(req);
 
   try {
-    const response = (await res.json()) as ChatResponse;
-    return response;
+    return res as ChatResponse;
   } catch (error) {
-    console.error("[Request Chat] ", error, res.body);
+    console.error("[Request Chat] ", error, res);
   }
 }
 
@@ -93,7 +99,7 @@ export async function requestUsage() {
     requestOpenaiClient("dashboard/billing/subscription")(null, "GET"),
   ]);
 
-  const response = (await used.json()) as {
+  const response = used as {
     total_usage?: number;
     error?: {
       type: string;
@@ -101,7 +107,7 @@ export async function requestUsage() {
     };
   };
 
-  const total = (await subs.json()) as {
+  const total = subs as {
     hard_limit_usd?: number;
   };
 
@@ -145,12 +151,14 @@ export async function requestChatStream(
   const reqTimeoutId = setTimeout(() => controller.abort(), TIME_OUT_MS);
 
   try {
+    // axios is not support stream on the web, see: https://github.com/axios/axios/issues/479
     const res = await fetch("/api/chat-stream", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
         path: "v1/chat/completions",
         ...getHeaders(),
+        authorization: "Bearer " + useAuthStore.getState().token,
       },
       body: JSON.stringify(req),
       signal: controller.signal,
@@ -192,6 +200,7 @@ export async function requestChatStream(
 
       finish();
     } else if (res.status === 401) {
+      useAuthStore.getState().logout();
       console.error("Unauthorized");
       options?.onError(new Error("Unauthorized"), res.status);
     } else {
@@ -255,3 +264,27 @@ export const ControllerPool = {
     return `${sessionIndex},${messageIndex}`;
   },
 };
+
+export const axios = orgAxios.create({});
+
+axios.interceptors.response.use(
+  function (response) {
+    // Any status code that lie within the range of 2xx cause this function to trigger
+    // Do something with response data
+    if (response.data?.error) {
+      showToast(response.data.msg);
+      return Promise.reject(response.data.msg);
+    }
+    return response.data as any;
+  },
+  function (error) {
+    // Any status codes that falls outside the range of 2xx cause this function to trigger
+    // Do something with response error
+    if (error?.response?.data?.status === 401) {
+      useAuthStore.getState().logout();
+    } else if (error?.response?.data?.msg) {
+      showToast(error?.response?.data?.msg);
+    }
+    return Promise.reject(error);
+  },
+);
