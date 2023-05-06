@@ -27,31 +27,37 @@ export const useAuthStore = create<AuthStore>()(
       isLogin: false,
       userInfo: {},
       async login(username, password) {
-        try {
-          const response = (await axios.post(
-            "/api/auth",
-            { username, password },
-            {
-              headers: { "Content-Type": "application/json" },
-            },
-          )) as {
-            error: boolean;
-            msg?: string;
-            userInfo?: Partial<User>;
-            token?: string;
-          };
-          if (!response.error) {
-            get().initToken(response.token);
-            set(() => ({
-              token: response.token,
-              userInfo: response.userInfo,
-              isLogin: true,
-            }));
-            showToast("Login successfully");
+        return new Promise(async (resolve, reject) => {
+          try {
+            const response = (await axios.post(
+              "/api/auth",
+              { username, password },
+              {
+                headers: { "Content-Type": "application/json" },
+              },
+            )) as {
+              error: boolean;
+              msg?: string;
+              userInfo?: Partial<User>;
+              token?: string;
+            };
+            if (!response.error) {
+              get().initToken(response.token);
+              set(() => ({
+                token: response.token,
+                userInfo: response.userInfo,
+                isLogin: true,
+              }));
+              showToast("Login successfully");
+              resolve();
+              return;
+            }
+            reject();
+          } catch (error) {
+            console.error("[Fetch Upstream Commit Id]", error);
+            reject();
           }
-        } catch (error) {
-          console.error("[Fetch Upstream Commit Id]", error);
-        }
+        });
       },
       async initToken(token: string = "") {
         const _token = token || get().token;
@@ -71,24 +77,30 @@ export const useAuthStore = create<AuthStore>()(
         }));
       },
       async register(username, password, email, phone) {
-        try {
-          const response = (await axios.post(
-            "/api/user",
-            { username, password, email, phone },
-            {
-              headers: { "Content-Type": "application/json" },
-            },
-          )) as {
-            error: boolean;
-            msg?: string;
-            id?: string;
-          };
-          if (!response.error) {
-            showToast("Register successfully"); // TODO: I18n
+        return new Promise(async (resolve, reject) => {
+          try {
+            const response = (await axios.post(
+              "/api/user",
+              { username, password, email, phone },
+              {
+                headers: { "Content-Type": "application/json" },
+              },
+            )) as {
+              error: boolean;
+              msg?: string;
+              id?: string;
+            };
+            if (!response.error) {
+              showToast("Register successfully"); // TODO: I18n
+              resolve();
+              return;
+            }
+            reject();
+          } catch (error) {
+            console.error("[Fetch Upstream Commit Id]", error);
+            reject();
           }
-        } catch (error) {
-          console.error("[Fetch Upstream Commit Id]", error);
-        }
+        });
       },
     }),
     {

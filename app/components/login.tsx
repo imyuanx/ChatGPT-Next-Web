@@ -7,6 +7,7 @@ import { IconButton } from "./button";
 import styles from "./login.module.scss";
 import EyeIcon from "../icons/eye.svg";
 import EyeOffIcon from "../icons/eye-off.svg";
+import LoadingIcon from "../icons/loading.svg";
 import Locale from "../locales";
 import { useAuthStore } from "../store";
 import { showToast } from "./ui-lib";
@@ -44,6 +45,7 @@ function PasswordInput(props: HTMLProps<HTMLInputElement>) {
 }
 
 export default function Login() {
+  const [isLoading, setIsLoading] = useState(false);
   const { isLogin, login, register } = useAuthStore();
   const [isRegister, setIsRegister] = useState(false);
   const [username, setUsername] = useState("");
@@ -57,25 +59,41 @@ export default function Login() {
 
   // login
   const onLogin = () => {
+    setIsLoading(true);
     if (!username || !password) {
       showToast(Locale.Auth.Toast1);
+      setIsLoading(false);
       return;
     }
-    login(username, password);
+    login(username, password)
+      .then(() => {
+        setIsLoading(false);
+      })
+      .catch(() => {
+        setIsLoading(false);
+      });
   };
 
   const onRegister = () => {
+    setIsLoading(true);
     if (!regUsername || !regPassword || !repRegPassword) {
       showToast(Locale.Auth.Toast1);
+      setIsLoading(false);
       return;
     }
     if (regPassword !== repRegPassword) {
       showToast(Locale.Auth.Toast2);
+      setIsLoading(false);
       return;
     }
-    register(regUsername, regPassword, regEmail, regPhone).then(() => {
-      setIsRegister(false);
-    });
+    register(regUsername, regPassword, regEmail, regPhone)
+      .then(() => {
+        setIsRegister(false);
+        setIsLoading(false);
+      })
+      .catch(() => {
+        setIsLoading(false);
+      });
   };
 
   const onSwitch = () => {
@@ -113,6 +131,8 @@ export default function Login() {
             </div>
             <div className={styles["login-item-btn"]}>
               <IconButton
+                icon={isLoading ? <LoadingIcon /> : undefined}
+                disabled={isLoading}
                 text={Locale.Auth.Login.Button}
                 className={styles["login-btn"]}
                 noDark
@@ -173,6 +193,8 @@ export default function Login() {
             </div>
             <div className={styles["login-item-btn"]}>
               <IconButton
+                icon={isLoading ? <LoadingIcon /> : undefined}
+                disabled={isLoading}
                 text={Locale.Auth.Register.Button}
                 className={styles["login-btn"]}
                 noDark
